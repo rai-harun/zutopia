@@ -1,1 +1,1 @@
-web: gunicorn zutopia.wsgi --log-file
+web: gunicorn zutopia.wsgi
