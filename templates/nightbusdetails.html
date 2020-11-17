@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Night Bus Details | Zutopia
+{% endblock title %}
+
+{% block content %}
+<div class="row mt-3">
+    {% for vehicle in vehicles %}
+    <div class="col-md-4">
+        <div class="card" style="width: 22rem;">
+            
+            <div class="card-body">
+            <img src="{{vehicle.vimage.url}}" class="card-img-top" alt="...">
+                <h5 class="card-title">{{vehicle.vname}}</h5>
+                <p class="card-text">{{vehicle.vdescription|truncatechars:100}}</p>
+                <a href="{% url 'busdetails' vehicle.id %}" class="btn btn-primary">View details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

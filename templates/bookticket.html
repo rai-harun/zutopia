@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} Bus Details
+{% endblock title %}
+
+{% block content %}
+<div class="row mt-3">
+
+    <div class="col-md-4">
+        <img class="card-img-top" src="{{busDetailsImage.vimage.url}}" alt="" srcset="">
+    </div>
+    <div class="col-md-8">
+        <h3>Available Tickets</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2">Side A</th>
+                    <th scope="col" colspan="2">Side B</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="{% url 'ticketdetails' busdetails.id%}">{{busdetails.vtickets}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock content %}

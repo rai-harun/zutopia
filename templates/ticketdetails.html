@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %} Ticket Details
+{% endblock title %}
+{% block content %}
+<script src="https://unpkg.com/khalti-checkout-web@latest/dist/khalti-checkout.iffe.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<div class="row mt-3">
+    <div class="col-md-4">
+        <img class="card-img-top" src="{{busDetailsImage.vimage.url}}" alt="" srcset="">
+    </div>
+    <div class="col-md-8">
+        <h3>Tickets Details</h3>
+        <hr>
+        <p><b> Departing Time:</b> {{ticketDetails.vdeparttime}}</p>
+        <hr>
+        <p><b>Rs. </b> {{ticketDetails.vticketprice}}</p>
+        <hr>
+        <p><b>Vehicle Name:</b> {{ticketDetails.vtickets}}</p>
+        
+        <button class="btn btn-primary" id="payment-button">Book Now</button>
+    </div>
+
+</div>
+
+<script>
+    function verifypayment(payload){
+        $.ajax({
+           url: "{% url 'payment_verify' %}",
+           type: 'POST',
+           data: payload,
+           dataType: 'json',
+           success: function (response){alert(response)},
+           error: function (error){alert(error.responseJSON['message'])} 
+        });
+    };
+    console.log('Sent!')
+    var config = {
+        // replace the publicKey with yours
+        "publicKey": "test_public_key_ff0631b3e1bb44d09db6bff951688146",
+        "productIdentity": "{{ticketDetails.vtickets}}",
+        "productName": "Dragon",
+        "productUrl": "http://127.0.0.1:8000",
+        "paymentPreference": [
+            "MOBILE_BANKING",
+            "KHALTI",
+            "EBANKING",
+            "CONNECT_IPS",
+            "SCT",
+            ],
+        "eventHandler": {
+            onSuccess (payload) {
+                // hit merchant api for initiating verfication
+                
+                console.log(payload);
+                verifypayment(payload);
+            },
+            onError (error) {
+                console.log(error);
+            },
+            onClose () {
+                console.log('widget is closing');
+            }
+        }
+    };
+
+    var checkout = new KhaltiCheckout(config);
+    var btn = document.getElementById("payment-button");
+    btn.onclick = function () {
+        // minimum transaction amount must be 10, i.e 1000 in paisa.
+        checkout.show({amount: {{ticketDetails.vticketprice}}*100});
+    }
+</script>
+
+{% endblock content %}
