@@ -1,0 +1,1 @@
+web: gunicorn zutopia.wsgi --log-file
