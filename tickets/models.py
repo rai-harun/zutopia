@@ -26,7 +26,7 @@ class Vehicle(models.Model):
     vseat = models.IntegerField()
     vroutefrom = models.ForeignKey(VehicleRouteFrom, on_delete=models.CASCADE, default=None)
     vrouteto = models.ForeignKey(VehicleRouteTo, on_delete=models.CASCADE, default=None)
-    vimage = models.ImageField(blank=True, upload_to='images/%Y/%m/%d/', default='images/1.jpg')
+    vimage = models.ImageField(blank=True, upload_to='images')
     vdescription = models.TextField(blank=True)
 
     def __str__(self):

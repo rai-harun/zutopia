@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %} Bus Details
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h1>Transactions</h1>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">idx</th>
+            <th scope="col">State</th>
+            <th scope="col">User</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Type</th>
+            <th scope="col">Refunded</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in res %}
+            <tr>
+            <th scope="row"><a href="{% url 'transaction_detail' r.idx %}">{{r.idx|truncatechars:5}}</a></th>
+            
+            <td>{{r.state.name}}</td>
+            <td>
+            {{r.user.name}}
+            <br>
+            ({{r.user.mobile}})
+            </td>
+            <td>{{r.amount}}</td>
+            <td>{{r.type.name}}</td>
+            <td>
+            {{r.refunded}}
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+
+
+        <p>{{r}}</p>
+        
+        
+    
+</div>
+{% endblock content %}

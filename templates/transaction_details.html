@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %} Transaction Details
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="border rounded my-4 p-4">
+        <h1>Transaction - {{data.idx}}</h1>
+        <div class="row">
+            <div class="col-md-4">Name</div>
+            <div class="col-md-8">{{data.type.name}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">Amount</div>
+            <div class="col-md-8">Rs {{data.amount}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">Fee</div>
+            <div class="col-md-8">Rs {{data.fee_amount}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">Date/Time</div>
+            <div class="col-md-8">{{data.created_on}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">User</div>
+            <div class="col-md-8">{{data.user.name}}{{data.user.mobile}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">State</div>
+            <div class="col-md-8">{{data.state.name}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">Reference</div>
+            <div class="col-md-8">{{data.reference}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">Remarks</div>
+            <div class="col-md-8">{{data.remarks}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">Product Identity</div>
+            <div class="col-md-8">{{data.meta.product_identity}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">Product Name</div>
+            <div class="col-md-8">{{data.meta.product_name}}</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">Product Url</div>
+            <div class="col-md-8">{{data.meta.product_url}}</div>
+        </div>
+        <hr>
+
+    </div>
+</div>
+{% endblock content %}

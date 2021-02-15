@@ -8,7 +8,7 @@ import json
 # Create your views here.
 def ticketsHome(request):
     return HttpResponse('Tickets Home Page')
-
+import requests
 def NightBusDetails(request):
     totalVehicle = Vehicle.objects.all()
     print(totalVehicle)
@@ -77,3 +77,52 @@ def verify_payment(request):
     pp.pprint(response_data)
 
     return JsonResponse(f"Payment completed with idx {response_data['user']['idx']}", safe=False)
+
+def transaction(request):
+    url = "https://khalti.com/api/v2/merchant-transaction/"
+    payload = {}
+    headers = {
+    "Authorization": "Key test_secret_key_9c9cc66a17c04144bd225fceb3c85d97"
+    }
+
+    response = requests.get(url, payload, headers = headers)
+    data = response.json()
+    # filtered_data = data['total_pages']
+    # print(type(data))
+    # print(data)
+    filtered_data = data['records']
+    
+    # for i in filtered_data:
+    #     transaction_idx = i['idx']
+    #     transaction_type = i['type']['name']
+    #     transaction_state = i['state']['name']
+    #     transaction_amount = i['amount']
+    #     transaction_fee_amount = i['fee_amount']
+    #     transaction_refunded = i['refunded']
+    #     transaction_created_on = i['created_on']
+    #     transaction_user_name = i['user']['name']
+    #     transaction_user_phone = i['user']['mobile']
+    #     transaction_user_email = i['user']['email']
+
+    #     print(transaction_user_name)
+
+
+    context = {
+        'res': filtered_data,
+        # 'transaction_idx': transaction_idx,
+    }
+    return render(request, 'transaction.html', context)
+
+def transaction_detail(request, idx):
+    url = "https://khalti.com/api/v2/merchant-transaction/"+idx
+    headers = {
+    "Authorization": "Key test_secret_key_9c9cc66a17c04144bd225fceb3c85d97"
+    }
+
+    response = requests.get(url, headers = headers)
+    res = response.json()
+    # print(res)
+    context = {
+        'data': res
+    }
+    return render(request, 'transaction_details.html', context)
